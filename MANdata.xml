@@ -1,0 +1,3 @@
+<MANhelp>
+	<MANdoc Title="LS" Body="A comand which lists files in a unix shells current directory."></MANdoc>
+	<MANdoc Title="CD" Body="A command which changes a shells current working directory to another address."></MANdoc></MANhelp>
