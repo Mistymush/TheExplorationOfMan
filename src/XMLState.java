@@ -73,6 +73,12 @@ public class XMLState {
 		return(cat_names);
 	}
 	
+	/**
+	 * getCategoryByName()
+	 * Returns a MANcategory object saved in the XML state if it is available.
+	 * @param category
+	 * @return
+	 */
 	public MANcategory getCategoryByName(String category){
 		MANcategory cat = null;
 		for(int i = 0; i < XMLcatagories.size(); i++){
@@ -89,6 +95,12 @@ public class XMLState {
 		return cat;	
 	}
 	
+	/**
+	 * getCommandByName()
+	 * Returns a MANcommand class if it is found in the XMLstate.
+	 * @param cmd_name
+	 * @return
+	 */
 	public MANcommand getCommandByName(String cmd_name){
 		MANcommand cmd = null;
 		for(int i = 0; i < XMLcommands.size(); i++){
@@ -105,6 +117,11 @@ public class XMLState {
 		return cmd;	
 	}
 	
+	/**
+	 * Returns all the cmd's which belong to a given category.
+	 * @param category
+	 * @return
+	 */
 	public String[] getCategorieCommands(String category){
 		
 		MANcategory cat = getCategoryByName(category);

@@ -38,7 +38,7 @@ public class XMLParser {
 		DocumentBuilder xml_builder = doc_fac.newDocumentBuilder();
 		Document xml_doc = xml_builder.parse(xml_file_handle);
 		
-		//For all nodes in the xml print their contents.
+		//For all top level "MANcategory" nodes produce a MANcategory class and add it to the state class.
 		NodeList articles = xml_doc.getElementsByTagName("MANcategory");
 		for (int i =0; i < articles.getLength(); i++){
 			Node current_node = articles.item(i);
@@ -49,6 +49,7 @@ public class XMLParser {
 				XMLState.MANcategory new_category =  new_state.new MANcategory(current_element.getAttribute("Title"),
 													current_element.getAttribute("Body"));
 			
+				//For all child nodes of each category produce an MANcommand class and add each to our state class.
 				NodeList children = current_element.getChildNodes();
 				for (int j =0; j < children.getLength(); j++){
 					
@@ -59,19 +60,18 @@ public class XMLParser {
 						XMLState.MANcommand new_command = new_state.new MANcommand(current_child_element.getAttribute("Title"),
 								current_child_element.getAttribute("Body"));
 						
-						
+						//add this cmd page to our state and register it with a category.
 						new_category.addSubCommand(new_command.getTitle());
 						new_state.addCommand(new_command);
 					}	
 				}
 				
+				//add our fully defined category to the state
 				new_state.addCatagory(new_category);
-				
-				//System.out.print("		Article Title: " + current_element.getAttribute("Title") +  "\n");
-				//System.out.print("		Article Body: " + current_element.getAttribute("Body") + "\n");
 			}
 		}
 		
+		//return the state in its final form.
 		return new_state;
 	}
 }

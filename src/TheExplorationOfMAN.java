@@ -112,7 +112,7 @@ public class TheExplorationOfMAN {
 		/**
 		 * list Labels.
 		 */
-		JLabel lblContents = new JLabel("Contents:");
+		JLabel lblContents = new JLabel("Categories:");
 		frmTheExplorationOfMAN.getContentPane().add(lblContents, "flowx,cell 0 1,growx");
 		
 		JLabel lblCommands = new JLabel("Commands:");
