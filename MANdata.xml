@@ -1,3 +1,18 @@
 <MANhelp>
-	<MANdoc Title="LS" Body="A comand which lists files in a unix shells current directory."></MANdoc>
-	<MANdoc Title="CD" Body="A command which changes a shells current working directory to another address."></MANdoc></MANhelp>
+	<MANcategory Title="System" Body="A system call represents an entry to the linux Kernel.">
+        <MANdoc Title="clone" Body="A function which creates a new child process from a given process."></MANdoc>
+        <MANdoc Title="exit" Body="Asks the kernel to terminate the calling process."></MANdoc>
+        <MANdoc Title="fork" Body="Creates a child process."></MANdoc>
+    </MANcategory>
+    <MANcategory Title="Directories" Body="A directory represents a node on the system's file tree.">
+        <MANdoc Title="cd" Body="A command which changes a shell's current working directory to another address."></MANdoc>
+        <MANdoc Title="ls" Body="A command which lists files in a unix shell's current directory."></MANdoc>
+        <MANdoc Title="pwd" Body="Prints the path to the current directory."></MANdoc>
+    </MANcategory>
+    <MANcategory Title="Files" Body="A file represents a structured collection of data.">
+        <MANdoc Title="mv" Body="Renames a file to have another name."></MANdoc>
+        <MANdoc Title="cp" Body="Makes a copy of a file to and gives it a specific name. "></MANdoc>
+        <MANdoc Title="rm" Body="Deletes a given filename if it is available."></MANdoc>
+        <MANdoc Title="chmod" Body="A command which changes the permissions on a given file."></MANdoc>
+    </MANcategory>
+</MANhelp>

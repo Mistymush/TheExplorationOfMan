@@ -4,6 +4,8 @@
  * 
  * used the following page as reference for this file:
  * https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
+ * 
+ * I used https://linux.die.net/man to source my simple MAN help examples.
  */
 
 
@@ -21,42 +23,55 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLParser {
-
-	/*
-	XMLParser(){
-
-	}
-	*/
 	
-	public void readMANData(String fileName) throws ParserConfigurationException, SAXException, IOException{
+	public XMLState readMANData(String fileName) throws ParserConfigurationException, SAXException, IOException{
 		
 		//Open XMLFile
-		File xml_file_handle = new File("MANdata.xml");
+		File xml_file_handle = new File(fileName);
+		
+		//XMLState to hold read in data.
+		XMLState new_state = new XMLState();
 		
 		//Parse XML
-		System.out.println("XML is opened here.");
+		System.out.println("XML was opened.");
 		DocumentBuilderFactory doc_fac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder xml_builder = doc_fac.newDocumentBuilder();
 		Document xml_doc = xml_builder.parse(xml_file_handle);
 		
-		System.out.println("XML root node name: " + xml_doc.getDocumentElement().getNodeName());
-		
-		System.out.println("Help Document Listing:");
-		
 		//For all nodes in the xml print their contents.
-		NodeList articles = xml_doc.getElementsByTagName("MANdoc");
+		NodeList articles = xml_doc.getElementsByTagName("MANcategory");
 		for (int i =0; i < articles.getLength(); i++){
 			Node current_node = articles.item(i);
-			
-			System.out.print("	Node Found: " + current_node.getNodeName() + "\n");
 			
 			if(current_node.getNodeType() == Node.ELEMENT_NODE){
 				Element current_element = (Element) current_node;
 				
-				System.out.print("		Article Title: " + current_element.getAttribute("Title") +  "\n");
-				System.out.print("		Article Body: " + current_element.getAttribute("Body") + "\n");
-			}
+				XMLState.MANcategory new_category =  new_state.new MANcategory(current_element.getAttribute("Title"),
+													current_element.getAttribute("Body"));
 			
+				NodeList children = current_element.getChildNodes();
+				for (int j =0; j < children.getLength(); j++){
+					
+					Node current_child = children.item(j);
+					if(current_child.getNodeType() == Node.ELEMENT_NODE){
+						Element current_child_element = (Element) current_child;
+						
+						XMLState.MANcommand new_command = new_state.new MANcommand(current_child_element.getAttribute("Title"),
+								current_child_element.getAttribute("Body"));
+						
+						
+						new_category.addSubCommand(new_command.getTitle());
+						new_state.addCommand(new_command);
+					}	
+				}
+				
+				new_state.addCatagory(new_category);
+				
+				//System.out.print("		Article Title: " + current_element.getAttribute("Title") +  "\n");
+				//System.out.print("		Article Body: " + current_element.getAttribute("Body") + "\n");
+			}
 		}
+		
+		return new_state;
 	}
 }
